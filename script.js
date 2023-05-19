@@ -23,33 +23,53 @@ for( var i = 0; i < urls.length; i++) {
 }
 
 // search filter function
-const searchUser = document.querySelector('#search');
+const searchUser = document.querySelector('#searchInput');
+// Adding event listener to search input
 searchUser.addEventListener('input', () => {
-    const filter = searchUser.value.toLowerCase();
-    const tRows = document.querySelectorAll('tbody tr');
-    tRows.forEach(row => {
-        let items = row.querySelectorAll('td');
-        let found = false;
-        items.forEach(item => {
-            if(item.textContent.includes(filter)){
-                found = true
-            }
-        })
-        if(found){
-            tRows.style.display = ''
-        } else {
-            tRows.style.display = 'none'
-        }
-    });
-});
+    // Converting the input value to lowercase to make it case insensitive
+    const searchTerm = searchUser.value.toLowerCase();
 
+    // Selecting the rows in the table to display search items and storing in tRows variable
+    const tRows = document.querySelectorAll('tbody tr');
+
+    // looping through the rows using forEach
+    tRows.forEach(row => {
+
+        // Selecting all table cells in each row and storing in items variable
+      let items = row.querySelectorAll('td');
+
+    //   Set found variable to false to make it a boolean to track any matching search items
+      let found = false;
+
+    // Looping through table cells in each row
+      items.forEach(item => {
+
+      // If item includes search input found is set to true 
+        if (item.textContent.toLowerCase().includes(searchTerm)) {
+          found = true;
+        }
+      });
+
+      // If item is not found the row is hidden and vice versa
+      if (found) {
+        row.style.display = ''; 
+      } else {
+        row.style.display = 'none'; 
+      }
+    });
+  });
+  
+
+// Displaying text and changing background color of contact-form when it is submitted
 const successMessage = document.querySelector('#success-message');
-const form = document.querySelector('.contact-form');
-form.addEventListener('submit', (e) => {
+const form = document.querySelector('#submit-form-button');
+form.addEventListener('click', function(e) {
     e.preventDefault();
     successMessage.style.display = 'block';
     form.style.backgroundColor = '#f2fbf1';
 });
+  
+
 
 
 
